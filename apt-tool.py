@@ -75,10 +75,12 @@ elif sys.argv[1] == 'import' and len(sys.argv) <= 3:
         print("You must to be root to import packages.")
         exit(1)
     
-    # Install/Upgrade all the save packages from the source system to the target system
+    # Install/Upgrade all the save packages from the source system to
+    # the target system   
     pkg_cache = apt.Cache()
     
-    # Read the packages from the text file and remove the trailing '\n' character
+    # Read the packages from the text file and remove the trailing
+    # '\n' character    
     if len(sys.argv) == 2:
         filename = "installed_pkgs.txt"
     else:
@@ -102,19 +104,23 @@ elif sys.argv[1] == 'import' and len(sys.argv) <= 3:
             # Mark package for installation if found
             try:
                 pkg.mark_install()                
-                print("Marking '" + str(pkg.versions[0]) + "' for installation.")
-            except apt_pkg.Error:
-                # BUG: For some reason some packages are reported as broken to APT
-                # but are actually installed at the end. Decided to catch the exception and fail
+                print("Marking '" + str(pkg.versions[0])
+                      + "' for installation.")
+            except apt_pkg.Error:                
+                # BUG: For some reason some packages are reported as
+                # broken to APT but are actually installed at the
+                # end. Decided to catch the exception and fail
                 # silently to continue with the process.
-                print("[ERROR] Package '" + str(pkg.versions[0]) + "' showing as broken.")
+                print("[ERROR] Package '" + str(pkg.versions[0])
+                      + "' showing as broken.")
 
-                # Log the packages with issues
-                # TODO: Investigate the package dependencies using `apt.package.Version`
+                # Log the packages with issues TODO: Investigate the
+                # package dependencies using `apt.package.Version`                
                 with open("broken_packages.txt", "a") as file:
                     file.write(pkg.name + "\n")
 
-    # TODO: Show more details about the committing/downloading process using `apt.progress`
+    # TODO: Show more details about the committing/downloading process
+    # using `apt.progress`
     print("Committing changes to the package cache ...")
     pkg_cache.commit()
     exit(0)
