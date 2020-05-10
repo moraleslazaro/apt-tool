@@ -31,7 +31,9 @@
 #
 #   The latest version will be installed on the new system.
 #
-import sys, os, apt
+import sys
+import os
+import apt
 import apt.progress
 import apt_pkg
 import apt.package
@@ -46,8 +48,8 @@ if sys.argv[1] == 'export' and len(sys.argv) <= 3:
     # First step will be get a list of the installed packages on the
     # source system to use them on the target system
     pkg_cache = apt.Cache()
-    
-    installed_pkgs = list() # List containing the installed packages  
+
+    installed_pkgs = list()  # List containing the installed packages
 
     # Store all the installed packages
     for pkg in pkg_cache:
@@ -62,7 +64,7 @@ if sys.argv[1] == 'export' and len(sys.argv) <= 3:
         filename = "installed_pkgs.txt"
     else:
         filename = sys.argv[2]
-        
+
     with open(filename, 'w') as file:
         for pkg in installed_pkgs:
             file.write(pkg.name + "\n")
@@ -71,31 +73,31 @@ if sys.argv[1] == 'export' and len(sys.argv) <= 3:
     sys.exit(0)
 elif sys.argv[1] == 'import' and len(sys.argv) <= 3:
     # Check for privileges
-    if os.getuid() is not 0:
+    if os.getuid() != 0:
         print("You must be root to import packages.")
         exit(1)
-    
+
     # Install/Upgrade all the save packages from the source system to
-    # the target system   
+    # the target system
     pkg_cache = apt.Cache()
-    
+
     # Read the packages from the text file and remove the trailing
-    # '\n' character    
+    # '\n' character
     if len(sys.argv) == 2:
         filename = "installed_pkgs.txt"
     else:
         filename = sys.argv[2]
 
-    try:    
+    try:
         with open(filename, 'r') as file:
             pkg_list = file.read().rstrip().split("\n")
     except FileNotFoundError:
         print("File '" + filename + "' not found.")
         exit(1)
-        
+
     for i in pkg_list:
         pkg = pkg_cache.get(i)
-        if not pkg:            
+        if not pkg:
             print("[WARNING] Package '" + i + "' not found.")
             # Log not found packages
             with open('missing_packages.txt', 'a') as file:
@@ -103,10 +105,10 @@ elif sys.argv[1] == 'import' and len(sys.argv) <= 3:
         else:
             # Mark package for installation if found
             try:
-                pkg.mark_install()                
+                pkg.mark_install()
                 print("Marking '" + str(pkg.versions[0])
                       + "' for installation.")
-            except apt_pkg.Error:                
+            except apt_pkg.Error:
                 # BUG: For some reason some packages are reported as
                 # broken to APT but are actually installed at the
                 # end. Decided to catch the exception and fail
@@ -114,7 +116,7 @@ elif sys.argv[1] == 'import' and len(sys.argv) <= 3:
                 print("[ERROR] Package '" + str(pkg.versions[0])
                       + "' showing as broken.")
 
-                # Log the packages with issues              
+                # Log the packages with issues
                 # TODO: Investigate the package dependencies using
                 # `apt.package.Version`
                 with open("broken_packages.txt", "a") as file:
