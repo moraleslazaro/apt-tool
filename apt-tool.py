@@ -5,26 +5,26 @@
 #   This script uses the Python binding for APT available at:
 #   <https://pypi.org/project/python-apt/>
 #
-#   This programm is free software: you can redistribute it and/or
-#   modify it under the terms of the GNU General Public License as
-#   published by the Free Software Foundation, either version 3 of the
-#   License, or (at your option) any later version.
+#   This programm is free software: you can redistribute it and/or modify it
+#   under the terms of the GNU General Public License as published by the Free
+#   Software Foundation, either version 3 of the License, or (at your option)
+#   any later version.
 #
-#   This program is distributed in the hope that it will be useful, but
-#   WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-#   General Public License for more details.
+#   This program is distributed in the hope that it will be useful, but WITHOUT
+#   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+#   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+#   more details.
 #
-#   You should have received a copy of the GNU General Public License
-#   along with this file.  If not, see <https://www.gnu.org/licenses/>.
+#   You should have received a copy of the GNU General Public License along
+#   with this file.  If not, see <https://www.gnu.org/licenses/>.
 #
 #   How to use it:
 #   ~~~~~~~~~~~~~~
 #   On the source system:
 #   $ apt-tool export
 #
-#   This will create a file named 'installed_pkgs.txt' that will
-#   be used on the target system.
+#   This will create a file named 'installed_pkgs.txt' that will be used on the
+#   target system.
 #
 #   On the target system:
 #   # apt-tool import installed_pkgs.txt   # Need root privileges
