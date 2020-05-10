@@ -77,8 +77,8 @@ elif sys.argv[1] == 'import' and len(sys.argv) <= 3:
         print("You must be root to import packages.")
         exit(1)
 
-    # Install/Upgrade all the save packages from the source system to the target
-    # system
+    # Install/Upgrade all the save packages from the source system to the
+    # target system
     pkg_cache = apt.Cache()
 
     # Read the packages from the text file and remove the trailing '\n'
@@ -115,7 +115,7 @@ elif sys.argv[1] == 'import' and len(sys.argv) <= 3:
                 print("[ERROR] Package '" + str(pkg.versions[0])
                       + "' showing as broken.")
 
-                # Log the packages with issues 
+                # Log the packages with issues
                 # TODO: Investigate the package dependencies using
                 # `apt.package.Version`
                 with open("broken_packages.txt", "a") as file:
