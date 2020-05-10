@@ -45,8 +45,8 @@ if len(sys.argv) == 1:
 
 # Save the installed packages from the source system
 if sys.argv[1] == 'export' and len(sys.argv) <= 3:
-    # First step will be get a list of the installed packages on the
-    # source system to use them on the target system
+    # First step will be get a list of the installed packages on the source
+    # system to use them on the target system
     pkg_cache = apt.Cache()
 
     installed_pkgs = list()  # List containing the installed packages
@@ -77,12 +77,12 @@ elif sys.argv[1] == 'import' and len(sys.argv) <= 3:
         print("You must be root to import packages.")
         exit(1)
 
-    # Install/Upgrade all the save packages from the source system to
-    # the target system
+    # Install/Upgrade all the save packages from the source system to the target
+    # system
     pkg_cache = apt.Cache()
 
-    # Read the packages from the text file and remove the trailing
-    # '\n' character
+    # Read the packages from the text file and remove the trailing '\n'
+    # character
     if len(sys.argv) == 2:
         filename = "installed_pkgs.txt"
     else:
@@ -109,14 +109,13 @@ elif sys.argv[1] == 'import' and len(sys.argv) <= 3:
                 print("Marking '" + str(pkg.versions[0])
                       + "' for installation.")
             except apt_pkg.Error:
-                # BUG: For some reason some packages are reported as
-                # broken to APT but are actually installed at the
-                # end. Decided to catch the exception and fail
-                # silently to continue with the process.
+                # BUG: For some reason some packages are reported as broken to
+                # APT but are actually installed at the end. Decided to catch
+                # the exception and fail silently to continue with the process.
                 print("[ERROR] Package '" + str(pkg.versions[0])
                       + "' showing as broken.")
 
-                # Log the packages with issues
+                # Log the packages with issues 
                 # TODO: Investigate the package dependencies using
                 # `apt.package.Version`
                 with open("broken_packages.txt", "a") as file:
