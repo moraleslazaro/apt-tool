@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #   apt-tool.py - APT package manipulation tool
-#   Copyright (c) 2018 Lazaro Morales <moraleslazaro@gmail.com>
+#   Copyright (c) 2018-2020 Lazaro Morales <moraleslazaro@gmail.com>
 #
 #   This script uses the Python binding for APT available at:
 #   <https://pypi.org/project/python-apt/>
